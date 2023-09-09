@@ -8,8 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --e2e",
-    "cypress:run:component": "cypress run --component --no-runner-ui",
+    "cypress:e2e": "cypress run --e2e",
+    "cypress:component": "cypress run --component",
+    "cypress:run": "npm run cypress:e2e && npm run cypress:component",
     "prepare": "husky install"
   },
   "dependencies": {
