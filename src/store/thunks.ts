@@ -8,7 +8,8 @@ export const fetchCollections = createAsyncThunk(
     async (arg: void, thunkApi) =>{
         try {
             const response = await httpGetCollections()
-            return response.data
+            console.log(response)
+            return response.data.collection_listings
         }catch(error: any){
             return rejectWithValue(error, thunkApi)
         }
@@ -20,7 +21,7 @@ export const fetchProductsByCollectionId = createAsyncThunk(
     async (collectionId: number, thunkApi) => {
         try{
             const response = await httpGetProductsByCollectionId(collectionId)
-            return response.data;
+            return response.data.products;
         } catch(error) {
             return rejectWithValue(error, thunkApi)
         }
@@ -32,7 +33,7 @@ export const fetchProductDetails = createAsyncThunk(
     async (productId: number, thunkApi) => {
         try {
             const response = await httpGetProductDetails(productId)
-            return response.data;
+            return response.data.product;
         }catch(error){
             return rejectWithValue(error, thunkApi)
         }

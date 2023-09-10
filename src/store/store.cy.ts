@@ -1,4 +1,4 @@
-import { CollectionsResponse, ProductDetailsResponse, ProductsResponse } from "@/models";
+import { Product } from "@/models";
 import { store } from ".";
 import { mockCollectionResponse, mockProductDetails, mockProductList } from "./api/shoppy-api.mock";
 import { fetchCollections, fetchProductDetails, fetchProductsByCollectionId } from "./thunks";
@@ -14,7 +14,7 @@ describe('store tests', () => {
             const result = await store.dispatch(fetchCollections())
             
             expect(result.type).equal('shoppy/collections/fulfilled')
-            const collections = (result.payload as CollectionsResponse).collection_listings;
+            const collections = result.payload;
             expect(collections.length).equal(1)
         })
 
@@ -26,7 +26,7 @@ describe('store tests', () => {
             const result = await store.dispatch(fetchProductsByCollectionId(collectionId))
 
             expect(result.type).equal('shoppy/products/fulfilled')
-            const products = (result.payload as ProductsResponse).products;
+            const products = result.payload as Product[];
             expect(products.length).equal(1)
         })
 
@@ -38,8 +38,8 @@ describe('store tests', () => {
             const result = await store.dispatch(fetchProductDetails(productId))
 
             expect(result.type).equal('shoppy/productDetails/fulfilled')
-            const productDetails = result.payload as ProductDetailsResponse;
-            const title = productDetails.product.title
+            const productDetails = result.payload as Product;
+            const title = productDetails.title
             expect(title).equal("Bedside Table")
         })
     })

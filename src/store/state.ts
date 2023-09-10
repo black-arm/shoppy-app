@@ -3,7 +3,7 @@ import { Collection, Product } from "@/models";
 export interface State {
     loading: 'idle'| 'pending'| 'succeded'| 'failed';
     errorMessage: string | null;
-    collections: Collection[] | null;
+    collections: Collection[];
     products: Product[] | null;
     productDetails: Product | null;
 }
@@ -11,7 +11,7 @@ export interface State {
 export const initialState: State = {
     errorMessage: null, 
     loading: 'idle',
-    collections: null,
+    collections: [],
     products: null,
     productDetails: null
 } 
