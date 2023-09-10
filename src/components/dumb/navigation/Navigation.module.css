@@ -1,0 +1,60 @@
+/* Navbar.module.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffbf00;
+    padding: 10px 20px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .horizontal-list {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .horizontal-list li {
+    margin: 0;
+  }
+
+  .dropdownContainer {
+    position: relative;
+  }
+  
+  .dropdownToggle {
+    cursor: pointer;
+  }
+  
+  .dropdownContent {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+
+  }
+  
+  .dropdownContent div {
+    padding: 1rem;
+    width: 10rem;
+    cursor: pointer;
+  }
+  
+  .dropdownContent div:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .dropdownContainer:hover .dropdownContent {
+    display: block;
+  }
+  

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // ***********************************************************
 // This example support/component.ts is processed and
 // loaded automatically before your test files.
@@ -20,7 +21,7 @@ import './commands'
 // require('./commands')
 
 import { mount } from 'cypress/react18'
-
+import '../../src/styles/globals.css'
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
 // Alternatively, can be defined in cypress/support/component.d.ts
