@@ -16,4 +16,18 @@ describe('homepage', () => {
         cy.getByData('title').eq(0).click()
         cy.url().should('include', '/products')
     })
+
+    it('should view the spinner', () =>{
+        cy.intercept('**/collection_listings.json', (req) => {
+            req.reply({
+                fixture: 'collection_list.json',
+                delay: 5000
+            })
+        }).as('collections')
+
+        cy.visit('/')
+        cy.getByData('spinner').should('exist')
+        cy.wait('@collections')
+        
+    })
 })
