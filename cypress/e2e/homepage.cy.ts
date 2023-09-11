@@ -30,4 +30,17 @@ describe('homepage', () => {
         cy.wait('@collections')
         
     })
+
+    /*
+    it('should view danger toast', () => {
+        cy.intercept('**collection_listings.json', { 
+            method: 'GET', 
+            statusCode: 500, 
+            body: {"message": "Internal server error" }
+        }).as('collections')
+
+        cy.visit('/')
+        cy.getByData('toast').should('exist')
+        cy.wait('@collections')
+    })*/
 })
