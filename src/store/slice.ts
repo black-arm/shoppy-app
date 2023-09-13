@@ -6,7 +6,11 @@ import { ErrorResponse } from "@/models";
 export const shoppySlice = createSlice({
     name: 'shoppy',
     initialState,
-    reducers: {}, 
+    reducers: {
+        loadingIdle(state) {
+            state.loading = 'idle'
+        }
+    }, 
     extraReducers: (builder) =>{
         builder.addCase(fetchCollections.pending, 
             (state) => {state.loading = 'pending'}),
@@ -14,7 +18,7 @@ export const shoppySlice = createSlice({
             fetchCollections.rejected, 
             (state, action) => {
                 state.loading = 'failed',
-                state.errorMessage = (action.payload as ErrorResponse).message
+                state.errorMessage = action.payload as string ?? 'Network Error'
             }
         ),
         builder.addCase(
@@ -30,7 +34,7 @@ export const shoppySlice = createSlice({
             fetchProductsByCollectionId.rejected, 
             (state, action) => {
                 state.loading = 'failed',
-                state.errorMessage = (action.payload as ErrorResponse).message
+                state.errorMessage = action.error.message ?? 'Network Error'
             }
         ),
         builder.addCase(
@@ -60,3 +64,5 @@ export const shoppySlice = createSlice({
 })
 
 export const reducer = shoppySlice.reducer;
+
+export const { loadingIdle } = shoppySlice.actions;

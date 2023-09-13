@@ -12,8 +12,10 @@ export default function App({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <HttpErrorToastContainer>
         <SpinnerContainer>
-            <Navigation />
-            <Component {...pageProps} />
+            <>
+              <Navigation />
+              <Component {...pageProps} />
+            </>
         </SpinnerContainer>
       </HttpErrorToastContainer>
     </Provider>

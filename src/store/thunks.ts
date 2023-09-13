@@ -1,7 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { httpGetCollections, httpGetProductDetails, httpGetProductsByCollectionId } from "./api/shoppy-api";
-import { AxiosError } from "axios";
-import { ErrorResponse } from "@/models";
 
 export const fetchCollections = createAsyncThunk(
     'shoppy/collections', 
@@ -41,6 +39,6 @@ export const fetchProductDetails = createAsyncThunk(
 )
 
 export const rejectWithValue = (error: any, thunkApi: any) => {
-    const axiosError = error as AxiosError<ErrorResponse>
-    return thunkApi.rejectWithValue(axiosError.response?.data.message)
+    
+    return thunkApi.rejectWithValue(error.message);
 }

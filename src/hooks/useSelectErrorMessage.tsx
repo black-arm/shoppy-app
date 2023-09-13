@@ -1,4 +1,4 @@
-import { useShoppyDispatch, useShoppySelector } from "@/store";
+import { useShoppySelector } from "@/store";
 
 export function useSelectErrorMessage() {
     return useShoppySelector((state) => state.shoppy.errorMessage)

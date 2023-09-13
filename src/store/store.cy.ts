@@ -2,6 +2,7 @@ import { Product } from "@/models";
 import { store } from ".";
 import { mockCollectionResponse, mockProductDetails, mockProductList } from "./api/shoppy-api.mock";
 import { fetchCollections, fetchProductDetails, fetchProductsByCollectionId } from "./thunks";
+import { loadingIdle } from "./slice";
 
 describe('store tests', () => {
     
@@ -41,6 +42,12 @@ describe('store tests', () => {
             const productDetails = result.payload as Product;
             const title = productDetails.title
             expect(title).equal("Bedside Table")
+        })
+
+        it('should be loading to idle', async () => {
+            
+            await store.dispatch(loadingIdle())
+            expect(store.getState().shoppy.loading).equal('idle')
         })
     })
 });
