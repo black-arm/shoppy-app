@@ -6,10 +6,10 @@ export function useSelectProducts() {
         const productsTitleFilter = state.shoppy.productsTitleFilter;
         const products = state.shoppy.products;
 
-        if(!productsTitleFilter || !products){
+        if(!productsTitleFilter){
             return products;
         }
 
-        return products.filter(product => product.title.includes(productsTitleFilter))
+        return products?.filter(product => product.title.includes(productsTitleFilter))
     })
 }

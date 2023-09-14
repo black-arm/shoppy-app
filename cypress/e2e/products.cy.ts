@@ -29,7 +29,7 @@ describe('products list page', () => {
         
         it('should message no item found', () => {       
             cy.getByData('productForm').find('[name="filter"]').type('Chair')     
-            cy.getByData('no-item').contains('Nessun Prodotto trovato')
+            cy.getByData('no-item').contains('No Products Found')
         })
     })
 
