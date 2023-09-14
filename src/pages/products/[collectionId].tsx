@@ -1,3 +1,4 @@
+import ProductForm from "@/components/smart/ProductForm/ProductForm";
 import ProductsList from "@/components/smart/ProductsList/ProductsList";
 import { useShoppyDispatch } from "@/store";
 import { fetchProductsByCollectionId } from "@/store/thunks";
@@ -19,6 +20,7 @@ export default function ProductsPage(){
     }, [collectionId, dispatch])
 
     return <>
+        <ProductForm />
        <ProductsList />
     </>
 }

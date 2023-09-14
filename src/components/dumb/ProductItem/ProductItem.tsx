@@ -14,7 +14,7 @@ export default function ProductItem({ product }: {product: Product}){
             </div>
             <div className="d-flex flex-column">
                 <h3 className="p-1 m-0">{product.title}</h3>
-                <h4 className="p-1 m-0">50.99 €</h4>
+                <h4 className="p-1 m-0">View Details</h4>
                 <div className="p-1" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product.body_html) }}></div>
                 <div className="p-1">
                     {tags.map((tag, index) => <span className="badge text-bg-secondary me-1" key={index}>{tag}</span>)}

@@ -6,6 +6,7 @@ export interface State {
     collections: Collection[];
     products: Product[] | null;
     productDetails: Product | null;
+    productsTitleFilter: string | null;
 }
 
 export const initialState: State = {
@@ -13,5 +14,6 @@ export const initialState: State = {
     loading: 'idle',
     collections: [],
     products: null,
-    productDetails: null
+    productDetails: null,
+    productsTitleFilter: null
 } 

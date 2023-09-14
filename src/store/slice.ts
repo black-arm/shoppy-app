@@ -9,6 +9,9 @@ export const shoppySlice = createSlice({
     reducers: {
         loadingIdle(state) {
             state.loading = 'idle'
+        },
+        filterProducts(state, action){
+            state.productsTitleFilter = action.payload.filter
         }
     }, 
     extraReducers: (builder) =>{
@@ -65,4 +68,4 @@ export const shoppySlice = createSlice({
 
 export const reducer = shoppySlice.reducer;
 
-export const { loadingIdle } = shoppySlice.actions;
+export const { loadingIdle, filterProducts } = shoppySlice.actions;

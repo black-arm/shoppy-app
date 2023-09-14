@@ -2,7 +2,7 @@ import { Product } from "@/models";
 import { store } from ".";
 import { mockCollectionResponse, mockProductDetails, mockProductList } from "./api/shoppy-api.mock";
 import { fetchCollections, fetchProductDetails, fetchProductsByCollectionId } from "./thunks";
-import { loadingIdle } from "./slice";
+import { filterProducts, loadingIdle } from "./slice";
 
 describe('store tests', () => {
     
@@ -48,6 +48,17 @@ describe('store tests', () => {
             
             await store.dispatch(loadingIdle())
             expect(store.getState().shoppy.loading).equal('idle')
+        })
+
+        it('should be filter products', async () => {
+
+            const collectionId = 12345
+            mockProductList(collectionId)
+            
+            await store.dispatch(fetchProductsByCollectionId(collectionId))
+
+            await store.dispatch(filterProducts({ filter: 'Table' }))
+            expect(store.getState().shoppy.productsTitleFilter).to.equal('Table')
         })
     })
 });
