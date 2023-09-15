@@ -1,11 +1,12 @@
 import { Toast } from "@/components/dumb/Toast/Toast";
-import { useShoppyDispatch, useShoppySelector } from "@/store";
+import { useToastInfo } from "@/hooks/useToastInfo";
+import { useShoppyDispatch } from "@/store";
 import { closeToast } from "@/store/slice";
 import React from "react";
 
 export function ToastContainer({ children }: { children: React.JSX.Element }){
     
-    const toastInfo = useShoppySelector((state) => state.shoppy.toast);
+    const toastInfo = useToastInfo()
 
     const dispatch = useShoppyDispatch();
 
