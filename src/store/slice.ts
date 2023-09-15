@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from './state'
 import { fetchCollections, fetchProductDetails, fetchProductsByCollectionId } from "./thunks";
-import { ErrorResponse } from "@/models";
+import { ErrorResponse, Product } from "@/models";
 
 export const shoppySlice = createSlice({
     name: 'shoppy',
@@ -17,6 +17,21 @@ export const shoppySlice = createSlice({
             state.productsTitleFilter = null;
             state.products = null;
             state.productDetails = null;
+        },
+        addProductToCart(state, action) {
+            const productIndex = state.cartProducts?.findIndex(
+                (product: Product) => product.id === action.payload.product.id)
+            if(productIndex === -1){
+                state.cartProducts?.push(action.payload.product);
+            }
+        },
+        removeProductToCart(state, action) {
+            const productIndex = state.cartProducts?.findIndex(
+                (product: Product) => product.id === action.payload.product.id)
+            
+            if(typeof productIndex === "number" && productIndex > -1){
+                state.cartProducts?.splice(productIndex, 1);
+            }
         }
     }, 
     extraReducers: (builder) =>{
@@ -73,4 +88,10 @@ export const shoppySlice = createSlice({
 
 export const reducer = shoppySlice.reducer;
 
-export const { loadingIdle, filterProducts, deleteProductsAndFilter } = shoppySlice.actions;
+export const { 
+    loadingIdle, 
+    filterProducts, 
+    deleteProductsAndFilter, 
+    addProductToCart, 
+    removeProductToCart 
+} = shoppySlice.actions;

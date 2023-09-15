@@ -11,6 +11,17 @@ describe('products list page', () => {
         cy.getByData('product-item').eq(0).should('exist');
     })
 
+    /*
+    it('should add product to cart', () => {
+        cy.visit('/products/266329686089')
+        cy.wait('@collectionProducts')
+        cy.getByData('product-item').eq(0).contains('Add to Cart').click();
+
+        cy.getByData('dropdown').click();
+        cy.getByData('cart-link').click();
+        cy.getByData('product-item').should('exist');
+    }) */
+
     context('filter', () => {
 
         beforeEach(() => {

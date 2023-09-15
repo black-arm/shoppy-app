@@ -7,6 +7,7 @@ export interface State {
     products: Product[] | null;
     productDetails: Product | null;
     productsTitleFilter: string | null;
+    cartProducts: Product[] | null;
 }
 
 export const initialState: State = {
@@ -15,5 +16,6 @@ export const initialState: State = {
     collections: [],
     products: null,
     productDetails: null,
-    productsTitleFilter: null
+    productsTitleFilter: null,
+    cartProducts: [],
 } 

@@ -1,12 +1,26 @@
 import { Product } from "@/models";
 import DOMPurify from "dompurify";
 import Image from "next/image";
-import { QuantityInput } from "../QuantityInput/QuantityInput";
+import React from "react";
 
-export default function ProductItem({ product }: {product: Product}){
+export default function ProductItem({ product, onClickProduct, itemType }: {
+    product: Product, 
+    // eslint-disable-next-line no-unused-vars
+    onClickProduct(productId: Product): void,
+    itemType: 'view' | 'cart'
+}){
 
     const src = product.image.src ?? '';
     const tags = product.tags.split(', ');
+
+    function onClickProductButton(event: React.MouseEvent<HTMLButtonElement>){
+        event.stopPropagation();
+        onClickProduct(product);
+    }
+
+    const buttonLabel = itemType === 'view' ? 
+        <>Add to Cart <i className="bi bi-cart-plus"></i></>
+        : <>Remove to Cart <i className="bi bi-cart-dash"></i></>
 
     return <>
         <div data-cy="product-item" className="d-flex m-2 border-bottom">
@@ -21,7 +35,9 @@ export default function ProductItem({ product }: {product: Product}){
                     {tags.map((tag, index) => <span className="badge text-bg-secondary me-1" key={index}>{tag}</span>)}
                 </div>
                 <div className="p-1">
-                    <QuantityInput name={product.id.toString()} />
+                    <button data-cy="cart-button" onClick={onClickProductButton} className="btn btn-primary btn-primary-sm" >
+                        { buttonLabel }
+                    </button>
                 </div>
             </div>
         </div>

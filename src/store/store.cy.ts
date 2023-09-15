@@ -2,7 +2,7 @@ import { Product } from "@/models";
 import { store } from ".";
 import { mockCollectionResponse, mockProductDetails, mockProductList } from "./api/shoppy-api.mock";
 import { fetchCollections, fetchProductDetails, fetchProductsByCollectionId } from "./thunks";
-import { deleteProductsAndFilter, filterProducts, loadingIdle } from "./slice";
+import { addProductToCart, deleteProductsAndFilter, filterProducts, loadingIdle, removeProductToCart } from "./slice";
 
 describe('store tests', () => {
     
@@ -70,6 +70,35 @@ describe('store tests', () => {
             await store.dispatch(deleteProductsAndFilter())
             expect(store.getState().shoppy.productsTitleFilter).equal(null)
             expect(store.getState().shoppy.products).equal(null)
+        })
+
+        it('should add product to cart and remove it to cart', async () => {
+
+            const collectionId = 12345
+            mockProductList(collectionId)
+            
+            await store.dispatch(fetchProductsByCollectionId(collectionId))
+
+            const products = store.getState().shoppy.products
+
+            if(!products){
+                throw new Error('Products must be present into store');
+            }
+
+            const product = products[0];
+
+            await store.dispatch(addProductToCart({ product: product }))
+            
+            const cartProducts = store.getState().shoppy.cartProducts;
+
+            expect(cartProducts).have.length(1);
+            expect(cartProducts?.[0].id).equal(product.id)
+
+            await store.dispatch(removeProductToCart({ product: product }))
+
+            const cartProductEmpty = store.getState().shoppy.cartProducts;
+
+            expect(cartProductEmpty).have.length(0); 
         })
     })
 });

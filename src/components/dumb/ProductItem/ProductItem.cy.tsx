@@ -87,6 +87,15 @@ describe('ProductItem', () => {
     }
 
     it('render', () =>{
-        cy.mount(<ProductItem product={product} />)
+        cy.mount(<ProductItem product={product} onClickProduct={() =>{}} itemType="view" />)
+    })
+
+    it('should call addProductToCart', () =>{
+
+        function addProductToCart(product: Product){
+            expect(product.id).equal(6735725133897)
+        }
+        cy.mount(<ProductItem product={product} onClickProduct={addProductToCart} itemType="view" />)
+        cy.getByData('cart-button').click();
     })
 })
