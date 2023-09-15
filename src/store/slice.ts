@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from './state'
 import { fetchCollections, fetchProductDetails, fetchProductsByCollectionId } from "./thunks";
-import { ErrorResponse, Product } from "@/models";
+import { Product } from "@/models";
 
 export const shoppySlice = createSlice({
     name: 'shoppy',
@@ -23,6 +23,11 @@ export const shoppySlice = createSlice({
                 (product: Product) => product.id === action.payload.product.id)
             if(productIndex === -1){
                 state.cartProducts?.push(action.payload.product);
+                state.toast = {
+                    showToast: true,
+                    message: `Product ${action.payload.product.title} added to Cart`,
+                    color: 'success'
+                }
             }
         },
         removeProductToCart(state, action) {
@@ -31,6 +36,13 @@ export const shoppySlice = createSlice({
             
             if(typeof productIndex === "number" && productIndex > -1){
                 state.cartProducts?.splice(productIndex, 1);
+            }
+        },
+        closeToast(state) {
+            state.toast = {
+                showToast: false,
+                color: null,
+                message: null
             }
         }
     }, 
@@ -41,7 +53,11 @@ export const shoppySlice = createSlice({
             fetchCollections.rejected, 
             (state, action) => {
                 state.loading = 'failed',
-                state.errorMessage = action.payload as string ?? 'Network Error'
+                state.toast = {
+                    message: action.payload as string ?? 'Network Error',
+                    color: 'danger',
+                    showToast: true
+                }
             }
         ),
         builder.addCase(
@@ -57,7 +73,11 @@ export const shoppySlice = createSlice({
             fetchProductsByCollectionId.rejected, 
             (state, action) => {
                 state.loading = 'failed',
-                state.errorMessage = action.error.message ?? 'Network Error'
+                state.toast = {
+                    message: action.payload as string ?? 'Network Error',
+                    color: 'danger',
+                    showToast: true
+                }
             }
         ),
         builder.addCase(
@@ -73,7 +93,11 @@ export const shoppySlice = createSlice({
             fetchProductDetails.rejected, 
             (state, action) => {
                 state.loading = 'failed',
-                state.errorMessage = (action.payload as ErrorResponse).message
+                state.toast = {
+                    message: action.payload as string ?? 'Network Error',
+                    color: 'danger',
+                    showToast: true
+                }
             }
         ),
         builder.addCase(
@@ -93,5 +117,6 @@ export const {
     filterProducts, 
     deleteProductsAndFilter, 
     addProductToCart, 
-    removeProductToCart 
+    removeProductToCart,
+    closeToast
 } = shoppySlice.actions;

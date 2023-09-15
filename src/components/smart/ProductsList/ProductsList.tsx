@@ -11,6 +11,7 @@ export default function ProductsList(){
 
     function onClickAddProductToCart(product: Product){
         dispatch(addProductToCart({ product: product }))
+        
     }
 
     return <>

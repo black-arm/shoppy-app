@@ -8,6 +8,11 @@ export interface State {
     productDetails: Product | null;
     productsTitleFilter: string | null;
     cartProducts: Product[] | null;
+    toast: {
+        showToast: boolean;
+        color: 'danger' | 'warning' | 'success' | null
+        message: string | null;
+    }
 }
 
 export const initialState: State = {
@@ -18,4 +23,9 @@ export const initialState: State = {
     productDetails: null,
     productsTitleFilter: null,
     cartProducts: [],
+    toast: {
+        showToast: false,
+        message: null,
+        color: null
+    }
 } 
