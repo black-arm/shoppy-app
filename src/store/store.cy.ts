@@ -2,7 +2,7 @@ import { Product } from "@/models";
 import { store } from ".";
 import { mockCollectionResponse, mockProductDetails, mockProductList } from "./api/shoppy-api.mock";
 import { fetchCollections, fetchProductDetails, fetchProductsByCollectionId } from "./thunks";
-import { filterProducts, loadingIdle } from "./slice";
+import { deleteProductsAndFilter, filterProducts, loadingIdle } from "./slice";
 
 describe('store tests', () => {
     
@@ -59,6 +59,17 @@ describe('store tests', () => {
 
             await store.dispatch(filterProducts({ filter: 'Table' }))
             expect(store.getState().shoppy.productsTitleFilter).to.equal('Table')
+        })
+
+        it('should set filter and products to null', async () =>{
+            const collectionId = 12345
+            mockProductList(collectionId)
+            
+            await store.dispatch(fetchProductsByCollectionId(collectionId))
+
+            await store.dispatch(deleteProductsAndFilter())
+            expect(store.getState().shoppy.productsTitleFilter).equal(null)
+            expect(store.getState().shoppy.products).equal(null)
         })
     })
 });

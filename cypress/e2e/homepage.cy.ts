@@ -53,4 +53,27 @@ describe('homepage', () => {
         cy.getByData('toast').should('exist')
         cy.wait('@collections')
     })
+
+    context('move between collection', () =>{
+
+        it('should filter and productsList null if client move between collection', () => {
+            cy.intercept('**/collection_listings.json', { fixture: 'collection_list.json'}).as('collections')
+            cy.intercept('**/products.json', { fixture: 'collection_products.json' }).as('products');
+           
+            cy.visit('/')
+            cy.wait('@collections')
+            
+            cy.getByData('title').eq(0).click()
+            cy.wait('@products')
+            cy.getByData('searchButton').click()
+            cy.get('[name="filter"]').type('Vanilla')
+            cy.getByData('product-item').eq(0).contains('Vanilla candle')
+            cy.getByData('homepage-link').click()
+            cy.wait('@collections')
+            
+            cy.getByData('title').eq(0).click()
+            cy.wait('@products')
+            cy.getByData('product-item').eq(0).contains('Bedside Table')
+        })
+    })
 })

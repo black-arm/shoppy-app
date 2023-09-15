@@ -1,6 +1,6 @@
 import { useShoppyDispatch } from "@/store";
-import { filterProducts } from "@/store/slice";
-import { useState } from "react"
+import { deleteProductsAndFilter, filterProducts } from "@/store/slice";
+import { useEffect, useState } from "react"
 import React from "react";
 
 export default function ProductForm() {
@@ -14,6 +14,12 @@ export default function ProductForm() {
         event.stopPropagation()
         setShowForm(!showForm)
     }
+
+    useEffect(() =>{
+        return () => {
+            dispatch(deleteProductsAndFilter())
+        }
+    }, [dispatch])
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         
