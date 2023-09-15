@@ -1,6 +1,7 @@
 import { Product } from "@/models";
 import DOMPurify from "dompurify";
 import Image from "next/image";
+import { QuantityInput } from "../QuantityInput/QuantityInput";
 
 export default function ProductItem({ product }: {product: Product}){
 
@@ -18,6 +19,9 @@ export default function ProductItem({ product }: {product: Product}){
                 <div className="p-1" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product.body_html) }}></div>
                 <div className="p-1">
                     {tags.map((tag, index) => <span className="badge text-bg-secondary me-1" key={index}>{tag}</span>)}
+                </div>
+                <div className="p-1">
+                    <QuantityInput name={product.id.toString()} />
                 </div>
             </div>
         </div>
